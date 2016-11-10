@@ -1,39 +1,56 @@
 console.log("JS file is connected to HTML! Woo!");
-var cardString = ["Queen", "Queen", "King", "King"];
+var cards = ["Queen", "Queen", "King", "King"];
 cardsInPlay = [];
-var createBoard=function(){
-	for(var i = 0; i < cardString.length; i++){
-		cardElement.setAttribute('data-card', cardString[i]);
-	}
-}
 
-function isTwoCards(){
+// create cards and board
+
+var createBoard = function() {
+var gameBoard = document.getElementById('game-board');
+for (var x = 0 ; x < cards.length; x++){
+var cardElement = document.createElement('div');
+cardElement.className = 'card';
+cardElement.setAttribute('data-card', cards[x]);
+cardElement.addEventListener('click', isTwoCards);
+gameBoard.appendChild(cardElement);
+}
+}
+// flip on click
+
+
+//To test if two cards are in play
+var isTwoCards = function(){
 	cardsInPlay.push(this.getAttribute('data-card'));
+	if (cardsInPlay[0] === "King") {
+		this.innerHTML = '<img src="king.png" alt="king" />'
+	}
+	if (cardsInPlay[0] === "Queen") {
+		this.innerHTML = '<img src="queen.png" alt="queen" />'
+	}
+	if (cardsInPlay[1] === "King") {
+		this.innerHTML = '<img src="king.png" alt="king" />'
+	}
+	if (cardsInPlay[1] === "Queen") {
+		this.innerHTML = '<img src="queen.png" alt="queen" />'
+	}
 	if (cardsInPlay.length === 2) {
 		isMatch(cardsInPlay);
 		cardsInPlay = [];
 	}
 }
-// var isMatch = function(){
-// if ((cardsInPlay[1]) === (cardsInPlay[2])){
-// alert("You found a match!")
-// }else if (cardsInPlay[1] !== cardsInPlay[2]){
-// 	alert("Sorry, try again.")
-// }
 
 
-// var cards=document.getElementById('game-board');
-// for(var x= 0 ; x < cards.length; x++){
-// cards[x].createElement('div');
-// cards[x].className = 'card';
-// game-board.appendChild(cards);};
-var createCards = function() {
-var i = document.getElementById('game-board');
-for (var x = 0 ; x < 4; x++){
-var cards = document.createElement('div');
-cards.className = 'card';
-document.getElementById('game-board').appendChild(cards);
+
+
+//To test if two cards in play are a match
+
+var isMatch = function(){
+if (cardsInPlay[0] === cardsInPlay[1]){
+alert("You found a match!")
+}else if (cardsInPlay[0] !== cardsInPlay[1]){
+	alert("Sorry, try again.")
 }
 }
 
-createCards();
+// create board
+
+createBoard();
