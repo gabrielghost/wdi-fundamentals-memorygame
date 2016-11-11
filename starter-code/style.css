@@ -18,6 +18,19 @@ nav a:hover{
 	color: black;
 	background-color: #ee5f3c;
 }
+h1{
+	font-family: 'Inconsolata', monospace;
+}
+h2{
+	font-family: 'Inconsolata', monospace;
+}
+p{
+	font-family: 'Inconsolata', monospace;
+}
+.instructions{
+	width: 50%;
+	display: inline-block;
+}
 
 .clearfix:after{
 		visibility: hidden;
@@ -67,10 +80,10 @@ footer{
 	margin: 0;
 }
 footer p{
-	font-style: italic;
+
 }
 footer span{
-	color: green;
+	color: #dddddd;
 }/* This is a multi-line
 comment. Add your CSS code
 from Unit 1 - 5 below  */

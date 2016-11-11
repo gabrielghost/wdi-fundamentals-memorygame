@@ -34,7 +34,7 @@ var isTwoCards = function(){
 	}
 	if (cardsInPlay.length === 2) {
 		isMatch(cardsInPlay);
-		cardsInPlay = [];
+
 	}
 }
 
@@ -46,8 +46,10 @@ var isTwoCards = function(){
 var isMatch = function(){
 if (cardsInPlay[0] === cardsInPlay[1]){
 alert("You found a match!")
+		cardsInPlay = [];
 }else if (cardsInPlay[0] !== cardsInPlay[1]){
 	alert("Sorry, try again.")
+			cardsInPlay = [];
 }
 }
 
