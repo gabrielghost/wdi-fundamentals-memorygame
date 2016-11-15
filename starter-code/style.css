@@ -9,14 +9,16 @@ nav a{
 	text-decoration: none;
 	background-color: #ffbf00;
 	color: white;
-	padding: 35px;
+	padding: 8px;
 	display: block;
 	float: left;
+	font-family: 'Inconsolata', monospace;
 }
 nav a:hover{
 	text-decoration: none;
 	color: black;
 	background-color: #ee5f3c;
+	font-family: 'Inconsolata', monospace;
 }
 h1{
 	font-family: 'Inconsolata', monospace;
@@ -41,9 +43,10 @@ p{
         font-size: 0;
       }
 .board{
-	height:80%;
+	height:100%;
 	width:50%;
-	display:inline-block;
+	display: block;
+	margin: 0 auto;
 }
 .card{
 	height: 200px;
@@ -55,19 +58,31 @@ p{
 	margin: 10px;
 	display:inline-block;
 }
-img{
+.flipped{
 	height: 200px;
 	width: 150px;
+	border: 1px rgb(0,0,0);
+	background-color: rgb(200,0,50);
+	border-radius: 15px;
 	align-content: center;
+	margin: 0;
+	padding: 0;
+	display:inline-block;
 	position: relative;
-	top: -10px;
+	top: -9px;
 
 }
-.row1{
+#row1{
 	float: left;
+	display: inline-block;
 }
-.row2{
+#row2{
 	float: left;
+	display: inline-block;
+}
+/*.flipped{
+	width: 150px;
+	display: inline-block;*/
 }
 h1 {
 	color: rgb(2, 132, 130);
