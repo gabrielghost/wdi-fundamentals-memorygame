@@ -16,7 +16,7 @@ function shuffle(a) {
 
 // cards in play string
 var cardsInPlay = [];
-var pairTally = 0;
+var pairTally = document.getElementById("numberofpairs");
 var tries = 0;
 var cardsClicked = [];
 var pairsInGame = 2;
@@ -46,7 +46,7 @@ while (gameBoard.hasChildNodes()) {
 var createBoard = function() {
 // define function 'gameBoard' which gets elements with the ID of game-board so that 'append child' below can work
 clearDead();
-var tries = 0;
+tries = 0;
 cardsInPlay = [];
 var pairTally = 0;
 var mismatchTally = 0;
