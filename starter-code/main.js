@@ -16,9 +16,11 @@ function shuffle(a) {
 
 // cards in play string
 var cardsInPlay = [];
-var pairTally = 0
+var pairTally = 0;
+var tries = 0;
 var cardsClicked = [];
-
+var pairsInGame = 2;
+var cardsInGame = pairsInGame*2
 var createDead = function() {
 	// define function 'gameBoard' which gets elements with the ID of game-board so that 'append child' below can work
 var gameBoard = document.getElementById('game-board');
@@ -39,14 +41,15 @@ while (gameBoard.hasChildNodes()) {
 }
 }
 
-
-
 // create cards and board
 // define createBoard function
 var createBoard = function() {
 // define function 'gameBoard' which gets elements with the ID of game-board so that 'append child' below can work
 clearDead();
+var tries = 0;
 cardsInPlay = [];
+var pairTally = 0;
+var mismatchTally = 0;
 shuffle(cards);
 var gameBoard = document.getElementById('game-board');
 // loop set up for generation of cards
@@ -87,7 +90,14 @@ var isTwoCards = function(){
 //define the function:
 var isMatch = function(){
 // if the 1st entry to the series, cardsInPlay is equal to the 2nd....
-if (cardsInPlay[0] === cardsInPlay[1]){
+tries++;
+if (cardsInPlay.length === cardsInGame){
+setTimeout(function() {
+      alert("well done, you completed the game with " + tries + " tries!");
+      pairTally++;
+      }, 100);
+}
+else if (cardsInPlay[0] === cardsInPlay[1]){
 // then show the following alert:
 setTimeout(function() {
       alert("You found a match!");
@@ -120,6 +130,7 @@ var clearHTML = function(){
 var allCards = document.getElementsByClassName("card");
 for (x=0;x<cards.length; x++){
 	allCards[x].innerHTML = "";
+	allCards[x].removeAttribute("ID");
 
 }
 }
