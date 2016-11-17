@@ -1,7 +1,7 @@
 //Javascript test
 console.log("JS file is connected to HTML! Woo!");
 // card string
-var cards = ["Queen", "Queen", "King", "King", "Queen", "King", "Queen", "King"];
+var cards = ["Queen", "Queen", "King", "King"];
 
 // shuffle array
 function shuffle(a) {
@@ -13,14 +13,41 @@ function shuffle(a) {
         a[j] = x;
     }
 }
-shuffle(cards);
+
 // cards in play string
 var cardsInPlay = [];
+var pairTally = 0
+var cardsClicked = [];
+
+var createDead = function() {
+	// define function 'gameBoard' which gets elements with the ID of game-board so that 'append child' below can work
+var gameBoard = document.getElementById('game-board');
+// loop set up for generation of cards
+for (var x = 0 ; x < cards.length; x++){
+//define variable which creates div
+var cardElement = document.createElement('div');
+//give new div class name
+cardElement.className = 'deadCard';
+gameBoard.appendChild(cardElement);
+}
+}
+
+var clearDead = function() {
+	var gameBoard = document.getElementById("game-board");
+while (gameBoard.hasChildNodes()) {   
+    gameBoard.removeChild(gameBoard.firstChild);
+}
+}
+
+
 
 // create cards and board
 // define createBoard function
 var createBoard = function() {
 // define function 'gameBoard' which gets elements with the ID of game-board so that 'append child' below can work
+clearDead();
+cardsInPlay = [];
+shuffle(cards);
 var gameBoard = document.getElementById('game-board');
 // loop set up for generation of cards
 for (var x = 0 ; x < cards.length; x++){
@@ -29,78 +56,76 @@ var cardElement = document.createElement('div');
 //give new div class name
 cardElement.className = 'card';
 cardElement.setAttribute('data-card', cards[x]);
+cardElement.setAttribute('data-card-number', x);
 cardElement.addEventListener('click', isTwoCards);
 gameBoard.appendChild(cardElement);
 }
 }
-// flip on click
 
-//To test if two cards are in play
+var clicked = document.getElementById("flipped");
+//to 'flip' on click
 var isTwoCards = function(){
 	cardsInPlay.push(this.getAttribute('data-card'));
-	for (x=0; x<cards.length; x++){
-	if (cardsInPlay[x] === "King") {
-		this.innerHTML = '<img src="king.png" alt="king" height="200" width="150"/>'
+	if (this.getAttribute('data-card') === "King") {
+		this.innerHTML = '<img src="king.png" alt="king" height="200" width="150"/>';
+		this.setAttribute('id','flipped');
 	}
-	if (cardsInPlay[x] === "Queen") {
-		this.innerHTML = '<img src="queen.png" alt="queen" height="200" width="150"/>'
+	if (this.getAttribute('data-card') === "Queen") {
+		this.innerHTML = '<img src="queen.png" alt="queen" height="200" width="150"/>';
+		this.setAttribute('id','flipped');
 	}
-	if (cardsInPlay.length === 2) {
+//if two cards have been clicked - run match or not match function
+	if (cardsInPlay.length === 2 || cardsInPlay.length === 4) {
 		isMatch();
+		// cardsInPlay = [];
 	}
-	if (cardsInPlay.length === cards.length) {
-		endOfGame();
-	}
-}
 }
 
-var endOfGame = function(){
-for (x=0; x<cards.length; x++){
-	if (cardsInPlay[x] === "King") {
-		document.getElementsByClassName("cards").innerHTML = ""
-	}
-	if (cardsInPlay[x] === "Queen") {
-		document.getElementsByClassName("cards").innerHTML = ""
-	}
-		// cardsInPlay = [];
-}
-}
-//reset board function
-var resetBoard = function() {
-// define function 'gameBoard' which gets elements with the ID of game-board so that 'append child' below can work
-var gameBoard = document.getElementById('game-board');
-var cardElement = document.getElementsByClassName('card');
-// loop set up for generation of cards
-for (var x = 0 ; x < cardsInPlay.length; x++){
-//give new div class name
-cardElement.innerHTML = "";
-}
-}
+
 
 //To test if two cards in play are a match
 //define the function:
 var isMatch = function(){
-var flipped = document.getElementsByClassName('flipped');
 // if the 1st entry to the series, cardsInPlay is equal to the 2nd....
 if (cardsInPlay[0] === cardsInPlay[1]){
 // then show the following alert:
 setTimeout(function() {
       alert("You found a match!");
+      pairTally++;
       }, 100);
-// location.reload();
+		
+// var resetEventListener = function(){
+// 	var card = document.getElementsByClassName('card');
+// 	for (x=0;x<card.length;x++){
+// 	card.removeEventListener('click', isTwoCards);
+// 	card.addEventListener('click', isTwoCards);
+// }
+// }
+
 // otherwise,
 }else{
 	setTimeout(function() {
       alert("sorry, try again");
-      }, 100);
-// show the following alert:
-
-	// flipped.innerHTML = "";
-	// flipped.className = "";
-	// location.reload();
+      }, 300);
+	setTimeout(function() {
+      clearHTML();
+      cardsInPlay = [];
+      // resetEventListener();
+      }, 500);
 }
-resetBoard();
+}
+
+//reset board
+var clearHTML = function(){
+var allCards = document.getElementsByClassName("card");
+for (x=0;x<cards.length; x++){
+	allCards[x].innerHTML = "";
+
+}
 }
 
 // create board
-createBoard();
+var startButton = document.getElementById('start');
+startButton.addEventListener('click', createBoard);
+
+createDead();
